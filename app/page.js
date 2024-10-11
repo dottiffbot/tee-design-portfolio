@@ -1,101 +1,82 @@
 import Image from "next/image";
+import Link from "next/link.js";
+import  client  from './lib/sanity.js'
+import Footer from "./components/Footer.js";
+export const revalidate = 10;
 
-export default function Home() {
+async function getData(){
+  const query = `*[_type == 'project'] {
+    title, 
+    _id, 
+    heading, 
+    description, 
+    tools,  
+    number,
+    alt,
+    "currentSlug":slug.current,
+    "mediaUrl" : media.asset->url,
+    "mediaType": media.asset->mimeType
+  }`
+
+
+const data = await client.fetch(query);
+return data;
+
+};
+
+export default async function Home() {
+  const data = await getData();
+
+  const sortedData = data.sort((a, b) => a.number - b.number);
+
+  const toolColors = {
+    "Figma": "#FEA3A0",
+    "Indesign": "#FFC3E4",
+    "Illustrator": "#FEA3A0",
+    "Blender": "#CBFF28",
+    "Cinema 4D":'#CBFF28',
+    "AfterEffects": '#6BCEB1',
+    "Code": '#5800FF',
+  };
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+<section className="w-full p-8">
+  <h1 className="border-b border-black border-dashed py-4">Selected Projects</h1>
+  <div className="py-6 flex flex-col gap-6 w-full">
+    {sortedData.map((project) =>(
+      <div key={project.id} className="flex flex-col lg:flex-row justify-between w-full border-b border-black py-4 gap-5">
+        <section className="flex flex-col gap-6 lg:w-1/3 w-full">
+        <h4 className="text-xs">[{project.number}.]</h4>
+        <h2>{project.title}</h2>
+        <h3>{project.heading}</h3>
+          <div className="flex flex-wrap flex-row lg:gap-6 gap-2">
+           {project.tools.map((toolItem, index) => (
+            <div key={toolItem}className="flex items-center justify-center place-items-center">
+            <span className="rounded-full border border-black  blur-[1px] p-[0.25em] bg-[--cream]" style={{ backgroundColor: toolColors[toolItem] || "#ccc" }}></span>
+            <span className="tool-tag">{toolItem}</span>
+            </div>
+          ))}
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        <Link href={`/project-page/${project.currentSlug}`} className="more-btn w-1/4">More</Link> 
+        </section>
+        <section className="lg:w-[50vw] w-full">
+        {project.mediaType.startsWith("image/") ? (
+                <Image src={project.mediaUrl} alt={project.alt} width={1920} height={1080}  className="img-container"/>
+              ) : project.mediaType.startsWith("video/") ? (
+                <video autoPlay loop className="video-container">
+                  <source src={project.mediaUrl} type={project.mediaType}  />
+                  Your browser does not support the video tag.
+                </video>
+              ) : null}
+        </section>
+
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+    ))}
+
+  </div>
+  {/* <h1 className="border-b border-black border-dashed py-4"> Additional Projects</h1> */}
+  <Footer></Footer>
+</section>
   );
 }

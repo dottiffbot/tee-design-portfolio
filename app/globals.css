@@ -1,27 +1,306 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://use.typekit.net/jmt6wra.css");
 
+@font-face {
+  font-family: 'New Edge Regular' ;
+  src: url(fonts/NewEdge666-RegularRounded.otf);
+}
+
+@font-face {
+  font-family: 'New Edge Light';
+  src: url(fonts/NewEdge666-LightRounded.otf);
+}
+
+@font-face {
+  font-family: 'Editorial-Italic';
+  src: url(fonts/PPEditorialNew-UltralightItalic.otf);
+}
+
+@font-face {
+  font-family: 'Editorial-Light';
+  src: url(fonts/PPEditorialNew-Ultralight.otf);
+}
+
+@font-face {
+  font-family: 'Aether';
+  src: url(fonts/AetherMonoARegular.otf);
+}
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream: #FFF5ED;
+  --coffee: #171717;
+  --grey: #a1a1a1;
+  --metal:#2e3437;
+  --brat:#CBFF28; 
+  --salmon:#FEA3A0;
+  --midnight:#5800FF;
+  --teal:#6BCEB1;
+  --seafoam:#9effe2;
+
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --metal:#2e3437;
+    --cream: #FFF5ED;
   }
 }
-
+html, body{
+  overflow-x: hidden;
+}
+html{
+  background-color: var(--cream);
+}
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color:var(--metal);
+  background: var(--cream);
+  font-family: 'New Edge Regular';
+  font-size: 1em;
+}
+
+p{
+  font-family: 'New Edge Light';
+  font-size: 18px;
+}
+h1{
+  font-family: 'Aether', monospace;
+  text-transform: uppercase;
+}
+
+.light{
+  font-family: 'New Edge Light';
+}
+
+
+h2{
+  text-transform: uppercase;
+  font-size: 24px;
+  /* font-family: 'Aether'; */
+}
+
+h3{
+  color: var(--grey);
+  font-size: 20px;
+  font-family: 'Editorial-Light';
+}
+h4{
+  font-family: 'Aether', monospace;
+}
+
+.sub{
+  font-family: 'Aether', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.tag, .tool-tag {
+  text-transform: uppercase;
+  font-family: 'New Edge Regular';
+  font-size: 14px;
+  text-align: center;
+  padding: 0 0.25em;
+
+}
+
+.tag{
+  color: var(--coffee);
+  border-radius: 0.5em;
+
+}
+
+a:hover{
+  color:var(--salmon);
+}
+.arrow:hover{
+opacity: 100%;
+}
+
+.link{
+  font-family: 'New Edge Light';
+  position: relative;
+}
+
+
+.link-text{
+  position: relative;
+  display: inline-block;
+}
+.link-text::after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  left: 0;
+  bottom:0;
+  background-color: var(--midnight);
+  transition:transform 0.25s ease-out;
+  transform-origin: bottom right;
+}
+
+.link:hover .link-text::after{
+  transform:scaleX(1);
+  transform-origin: bottom left;
+}
+
+.collaborators{
+  font-family: 'New Edge Light';
+
+}
+.more-btn{
+  font-family: 'New Edge Regular';
+  text-transform: uppercase;
+  background-color: rgb(218, 222, 222);
+  border-radius: 1em;
+  box-shadow: inset 0.25em 0em 1em grey;
+  text-align: center;
+  display: inline-block;
+  padding:0.2em 0.8em;
+}
+
+.button-text{
+  width:100%;
+}
+
+.more-btn:hover{
+  background-color: var(--metal);
+  color: var(--cream);
+}
+
+.more-btn:focus{
+  border: 1px solid black;
+}
+.more-btn:active{
+  background-color: var(--brat);
+  color: var(--metal)
+}
+
+.btn{
+  border-radius: 1em;
+  box-shadow: inset 0.25em 0em 1em grey;
+  padding:0.2em 0.7em;
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: black;
+}
+
+.btn:hover{
+  color: var(--teal);
+  background-color: var(--metal);
+}
+
+.btn:active{
+  color: var(--seafoam);
+
+}
+
+.img-container{
+  width: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 1em;
+
+}
+.video-container{
+  width: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius:1em;
+
+}
+
+.circular-nav{
+  font-family: 'New Edge Light';
+}
+
+.year{
+  font-family: 'New Edge Light';
+}
+
+.copyright{
+  font-family: 'Aether', monospace;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.back{
+  font-family: 'New Edge Regular';
+  color: var(--grey);
+}
+.top{
+  font-family: 'New Edge Light';
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
