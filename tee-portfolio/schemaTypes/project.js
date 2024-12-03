@@ -19,6 +19,20 @@ export const projectsType = defineType({
         },
        }),
        defineField({
+        name: 'types',
+        title:'Project Type',
+        type:'array',
+        of:[{type:'string'}],
+        options: {
+          list: [
+            {title: 'Design', value:'design'},
+            {title: 'Art', value:'art'},
+          ],
+          layout: 'checkbox',
+        },
+
+       }),
+       defineField({
         name:'number',
         title: 'Number', 
         type: 'string',
