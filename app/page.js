@@ -24,8 +24,9 @@ async function getData() {
 }
 
 export default async function Home() {
+
   const data = await getData();
   const sortedData = data.sort((a, b) => a.number - b.number);
 
-  return <ProjectList projects={data} />;
+  return <ProjectList projects={sortedData} />;
 }

@@ -35,7 +35,7 @@ export default function Header (){
           </div>
         
           <div className="flex flex-row lg:w-1/4  w-1/2 justify-between">
-            <Link href="https://docs.google.com/document/d/12WFJXY8Y1A6OWtH0RYm7YtEvBQPnIjDBeGnILVBjL_c/edit?usp=sharing" target="_blank" className="more-btn text-[--coffee]"><span className="button-text">CV</span></Link> 
+            <Link href="https://docs.google.com/document/d/1C8xP_UCQQ4_rMs48h6RJXycYukevY_-JXDpGtxfvE8c/edit?usp=sharing" target="_blank" className="more-btn text-[--coffee]"><span className="button-text">CV</span></Link> 
             <Link href="" className="more-btn text-[--coffee]"><span className="button-text">Email</span></Link>
           </div>
           <span className="lg:w-[10vw] w-1/2 btn text-center cursor-pointer" onClick={() => setIsOpen(false)}>CLOSE</span>

@@ -62,6 +62,9 @@ export default async function ProjectPage({params}){
       "Cinema 4D":'#CBFF28',
       "AfterEffects": '#6BCEB1',
       "Code": '#5800FF',
+      "Installation": '#FE80AA', 
+      "Electronics": '#ADF0B6',
+      "Risograph": '#CAA1FF',
 
     };
 
@@ -71,6 +74,7 @@ export default async function ProjectPage({params}){
       "Animator": "#A9DFCF",
       "UX Designer": "#D2BCFD",
       "Web Developer": "#D2BCFD",
+      "Copywriter": "#B5DEFC",
     };
 
 
@@ -112,26 +116,32 @@ export default async function ProjectPage({params}){
         <p className="sub text-[--grey]">Year</p>
           <div className='year'>{currentProject.year}</div>
         </div>
+        {currentProject.collaborators && (
+               <div className="flex flex-col gap-2">
+               <p className="sub text-[--grey]">Collaborators</p>
+               <div className="flex flex-col">
+                 {currentProject.collaborators.map((collaboratorsItem, index) => (
+                   <span key={index} className="collaborators">{collaboratorsItem}</span> 
+                 ))}
+               </div>
+       
+               </div>
+        )}
 
-        <div className="flex flex-col gap-2">
-        <p className="sub text-[--grey]">Collaborators</p>
-        <div className="flex flex-col">
-          {currentProject.collaborators.map((collaboratorsItem, index) => (
-            <span key={index} className="collaborators">{collaboratorsItem}</span> 
-          ))}
-        </div>
-        </div>
-
-        <div className="flex flex-col gap-2">
-        <p className="sub text-[--grey]">Links</p>
-        <div className="flex flex-col">
-          {currentProject.link.map ((linkItem, index) => (
+        {currentProject.link && (
+              <div className="flex flex-col gap-2">
+              <p className="sub text-[--grey]">Links</p>
+              <div className="flex flex-col">
+                {currentProject.link.map ((linkItem, index) => (
+                
+                   <Link key={index} href={linkItem.url} title={linkItem.title} className='link flex content-center gap-1 hover:text-[--midnight]'><span className='link-text'>{linkItem.title}</span><ArrowUpRightIcon className=' arrow size-3 self-center'/></Link>
           
-             <Link key={index} href={linkItem.url} title={linkItem.title} className='link flex content-center gap-1 hover:text-[--midnight]'><span className='link-text'>{linkItem.title}</span><ArrowUpRightIcon className=' arrow size-3 self-center'/></Link>
-    
-          ))}
-        </div>
-        </div>
+                ))}
+              </div>
+              </div>
+
+        )}
+
        
         </section>
         </section>

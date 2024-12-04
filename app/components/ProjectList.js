@@ -1,17 +1,37 @@
 // components/ProjectList.js
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams, useRouter} from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Footer from "./Footer.js";
 
 export default function ProjectList({ projects }) {
-  const [selectedFilter, setSelectedFilter] = useState('design');
+  // const [selectedFilter, setSelectedFilter] = useState('design');
+    // const filteredProjects = projects.filter((project) =>
+  //   project.types.includes(selectedFilter) 
+  // );
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [activeFilter, setActiveFilter] = useState('design');
+  const [filteredProjects, setFilteredProjects] = useState([]);
 
-  const filteredProjects = projects.filter((project) =>
-    project.types.includes(selectedFilter) 
-  );
+  useEffect(() => {
+    const filter = searchParams.get('filter') || 'design';
+    setActiveFilter(filter);
+    setFilteredProjects(
+      projects.filter((project) => project.types.includes(filter))
+    );
+  }, [searchParams, projects]);
+
+  const handleFilterChange = (filterType) => {
+    const params = new URLSearchParams();
+    params.set('filter', filterType);
+    const url = `/?${params.toString()}`;
+    router.push(url);
+  };
+
     const toolColors = {
     "Figma": "#FEA3A0",
     "Indesign": "#FFC3E4",
@@ -20,6 +40,10 @@ export default function ProjectList({ projects }) {
     "Cinema 4D":'#CBFF28',
     "AfterEffects": '#6BCEB1',
     "Code": '#5800FF',
+    "Installation": '#FE80AA',
+    "Electronics": '#ADF0B6',
+    "Risograph": '#CAA1FF',
+
   };
 
   return (
@@ -28,14 +52,14 @@ export default function ProjectList({ projects }) {
         <h1>Selected Projects</h1>
         <div className="flex gap-6">
           <p
-            className={`uppercase cursor-pointer ${selectedFilter === 'design' ? 'border-[--grey] border-b text-[--grey]' : ''}`}
-            onClick={() => setSelectedFilter('design')}
+            className={`uppercase cursor-pointer font-bold ${activeFilter === 'design' ? 'underline decoration[--grey] decoration-2 underline-offset-8 text-[--grey]' : ''}`}
+            onClick={() => handleFilterChange('design')}
           >
             Design
           </p>
           <p
-            className={`uppercase cursor-pointer ${selectedFilter === 'art' ? 'border-b border-[--grey] text-[--grey]' : ''}`}
-            onClick={() => setSelectedFilter('art')}
+            className={`uppercase cursor-pointer font-bold ${activeFilter === 'art' ? 'underline decoration-[--grey] decoration-2 underline-offset-8 text-[--grey]' : ''}`}
+            onClick={() => handleFilterChange('art')}
           >
             Art
           </p>
