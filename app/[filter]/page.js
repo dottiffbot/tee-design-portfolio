@@ -1,6 +1,6 @@
-import client  from './lib/sanity.js'
+import client  from '../lib/sanity.js'
 export const revalidate = 10;
-import ProjectList from './components/ProjectList';
+import ProjectList from '../components/ProjectList.js';
 
 async function getData() {
   const query = `*[_type == 'project'] {
@@ -22,6 +22,8 @@ async function getData() {
 
 
 }
+
+
 
 export default async function Home() {
 

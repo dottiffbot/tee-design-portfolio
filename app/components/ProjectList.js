@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSearchParams, useRouter} from 'next/navigation';
+import { useRouter, usePathname} from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Footer from "./Footer.js";
@@ -12,24 +12,22 @@ export default function ProjectList({ projects }) {
     // const filteredProjects = projects.filter((project) =>
   //   project.types.includes(selectedFilter) 
   // );
-  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const router = useRouter();
   const [activeFilter, setActiveFilter] = useState('design');
   const [filteredProjects, setFilteredProjects] = useState([]);
 
   useEffect(() => {
-    const filter = searchParams.get('filter') || 'design';
+    
+    const filter = pathname === '/' ? 'design' : pathname.slice(1);
     setActiveFilter(filter);
     setFilteredProjects(
       projects.filter((project) => project.types.includes(filter))
     );
-  }, [searchParams, projects]);
+  }, [pathname, projects]);
 
   const handleFilterChange = (filterType) => {
-    const params = new URLSearchParams();
-    params.set('filter', filterType);
-    const url = `/?${params.toString()}`;
-    router.push(url);
+    router.push(`/${filterType}`);
   };
 
     const toolColors = {
