@@ -65,6 +65,8 @@ export default async function ProjectPage({params}){
       "Installation": '#FE80AA', 
       "Electronics": '#ADF0B6',
       "Risograph": '#CAA1FF',
+      "Raspberry Pi": "#F1249C",
+      "Unity": "#BFFFF3",
 
     };
 
@@ -75,6 +77,8 @@ export default async function ProjectPage({params}){
       "UX Designer": "#D2BCFD",
       "Web Developer": "#D2BCFD",
       "Copywriter": "#B5DEFC",
+      "Artist": "#FBD600",
+      "Game Designer": "#FF8DC4",
     };
 
 

@@ -14,12 +14,13 @@ export default function Header (){
             <Drawer.Root direction="top" open={isOpen} onOpenChange={setIsOpen}>
       <Drawer.Trigger className="cursor-help">INFO</Drawer.Trigger>
       <Drawer.Portal>
+
         <Drawer.Overlay className="fixed inset-0 bg-black/50" />
         <Drawer.Content className="bg-[--metal] lg:h-[75vh] h-auto fixed top-0 left-0 right-0 border rounded-b-lg border-white cursor-row-resize">
           <div className="p-8 h-full w-full flex flex-col justify-between text-[--cream] gap-6 lg:gap-1">
-          <div className="lg:w-1/2 w-full flex flex-col gap-4">
+          <div className="lg:w-1/2 md:w-full w-full flex flex-col gap-4">
           <h1 className="text-[--grey] text-sm">About</h1>
-          <p className="lg:text-2xl text-md">
+          <p className="lg:text-2xl  text-md">
                  Tee Topor is a designer and full stack web developer, amongst other things. 
                 They mix traditional graphic design sensibility with experimental techniques, specializing in 3D modelling and animation, creative coding and more recently, game design. Often they are lucky to collaborate with value aligned artists, designers and cultural institutions. 
           </p>

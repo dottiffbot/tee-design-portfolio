@@ -41,6 +41,8 @@ export default function ProjectList({ projects }) {
     "Installation": '#FE80AA',
     "Electronics": '#ADF0B6',
     "Risograph": '#CAA1FF',
+    "Unity": "#BFFFF3",
+    "Raspberry Pi": "#F1249C",
 
   };
 

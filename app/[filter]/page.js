@@ -23,8 +23,6 @@ async function getData() {
 
 }
 
-
-
 export default async function Home() {
 
   const data = await getData();
@@ -32,3 +30,4 @@ export default async function Home() {
 
   return <ProjectList projects={sortedData} />;
 }
+
