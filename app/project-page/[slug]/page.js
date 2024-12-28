@@ -2,7 +2,9 @@
 import client from '../../lib/sanity'
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowUpRightIcon, ArrowUpIcon, ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid'
+import { ArrowUpRightIcon, ArrowUpIcon, ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
+import ProjectFooter from '@/app/components/ProjectFooter';
+
 
 
 export const revalidate = 30;
@@ -26,7 +28,8 @@ async function getData(slug){
       _type == "image" => { "type": "image", "url": asset->url, alt }, 
       _type == "file" => { "type": "file", "url": asset->url }
     },
-    number
+    number, 
+    types
   }`;
 
   const currentProject = await client.fetch(currentProjectQuery, { slug });
@@ -52,8 +55,8 @@ export default async function ProjectPage({params}){
     const next = nextProject || firstProject;
     const previous = previousProject || lastProject;
 
-    console.log(previousProject, nextProject);
-    
+    // console.log(previousProject, nextProject);
+  
     const toolColors = {
       "Figma": "#FEA3A0",
       "Illustrator": "#FEA3A0",
@@ -77,10 +80,11 @@ export default async function ProjectPage({params}){
       "UX Designer": "#D2BCFD",
       "Web Developer": "#D2BCFD",
       "Copywriter": "#B5DEFC",
-      "Artist": "#FBD600",
+      "Artist": "#33C2DB",
       "Game Designer": "#FF8DC4",
     };
 
+ 
 
     return(
         <section className='flex flex-col justify-between w-screen min-h-screen p-8 pt-15'> 
@@ -170,7 +174,7 @@ export default async function ProjectPage({params}){
                  <Image key={index} src={mediaItem.url} alt={currentProject.title} width={1920} height={1080} className="img-container"></Image>
     
                ): mediaItem.type === 'file' ?(
-              <video key={index} width={1920} height={1080} autoPlay loop className='video-container'>
+              <video key={index} width={1920} height={1080} autoPlay loop muted className='video-container'>
                 <source src={mediaItem.url} type='video/mp4'/>
               </video>
                ):null
@@ -178,25 +182,8 @@ export default async function ProjectPage({params}){
     ))}
     
         </section>
-                <footer className='w-full overflow-hidden flex justify-between p-4 mt-2 box-border content-center'>
-              
-                    {previousProject ? (
-                      <Link href={`/project-page/${previous.slug}`} className='circular-nav flex gap-1 content-center hover:text-[--teal]'>
-                       <ArrowLeftIcon className='size-4 self-center'/> Previous 
-                      </Link>
-                    ):<div/>}
-                     <Link href="#" className=" top flex content-center gap-2 hover:text-[--midnight]">
-            <ArrowUpIcon className="size-4 self-center"/> <span className='self-center top'>Top</span>
-            </Link>
-                    {nextProject ?(
-                      <Link href={`/project-page/${next.slug}`} className='circular-nav flex gap-1 content-center hover:text-[--teal]'>
-                        Next <ArrowRightIcon className='size-4 self-center'/>
-                     </Link>
-
-                    ): <div/>}
-
-                </footer>
-      
+             <ProjectFooter previousProject={previous} nextProject={next} topSelector="body" />
+  
         </section>
 
 

@@ -9,7 +9,7 @@ export default function Header (){
     const [isOpen, setIsOpen] = React.useState(false);
     return(
         <div className="w-full flex justify-between p-8 fixed text-[--grey] header text-lg">
-            <Link className="btn" href="/">Tee Topor</Link> 
+            <Link className="btn" href='/'>Tee Topor</Link> 
     
             <Drawer.Root direction="top" open={isOpen} onOpenChange={setIsOpen}>
       <Drawer.Trigger className="cursor-help">INFO</Drawer.Trigger>

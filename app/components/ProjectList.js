@@ -49,16 +49,16 @@ export default function ProjectList({ projects }) {
   return (
     <section className="w-full p-8">
       <div className="border-b border-black border-dashed py-4 flex justify-between">
-        <h1>Selected Projects</h1>
+        <h1 className='text-sm lg:text-lg'>Selected Projects</h1>
         <div className="flex gap-6">
           <p
-            className={`uppercase cursor-pointer font-bold ${activeFilter === 'design' ? 'underline decoration[--grey] decoration-2 underline-offset-8 text-[--grey]' : ''}`}
+            className={`uppercase cursor-pointer font-bold text-sm lg:text-lg ${activeFilter === 'design' ? 'underline decoration[--grey] decoration-2 underline-offset-8 text-[--grey]' : ''}`}
             onClick={() => handleFilterChange('design')}
           >
             Design
           </p>
           <p
-            className={`uppercase cursor-pointer font-bold ${activeFilter === 'art' ? 'underline decoration-[--grey] decoration-2 underline-offset-8 text-[--grey]' : ''}`}
+            className={`uppercase cursor-pointer font-bold text-sm lg:text-lg ${activeFilter === 'art' ? 'underline decoration-[--grey] decoration-2 underline-offset-8 text-[--grey]' : ''}`}
             onClick={() => handleFilterChange('art')}
           >
             Art
