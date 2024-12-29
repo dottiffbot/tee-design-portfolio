@@ -2,14 +2,17 @@
 import React from "react";
 import Link from "next/link";
 import { Drawer } from 'vaul'; 
-
+import { usePathname } from "next/navigation";
   
 
 export default function Header (){
+    const pathname = usePathname()
+    const pathSegments = pathname.split("/").filter(Boolean);
+    const activeFilter = pathSegments.length > 0 ? `/${pathSegments[0]}` : "/";
     const [isOpen, setIsOpen] = React.useState(false);
     return(
         <div className="w-full flex justify-between p-8 fixed text-[--grey] header text-lg">
-            <Link className="btn" href='/'>Tee Topor</Link> 
+            <Link className="btn" href={activeFilter}>Tee Topor</Link> 
     
             <Drawer.Root direction="top" open={isOpen} onOpenChange={setIsOpen}>
       <Drawer.Trigger className="cursor-help">INFO</Drawer.Trigger>
