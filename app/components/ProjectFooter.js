@@ -2,13 +2,17 @@
 import Link from 'next/link';
 import { ArrowUpIcon, ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
 import { gsap } from 'gsap';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
 
 gsap.registerPlugin(ScrollToPlugin);
 
-export default function ProjectFooter({ previousProject, nextProject, topSelector = "body" }) {
+export default function ProjectFooter({previousProject, nextProject, currentFilter, topSelector = "body" }) {
+ 
     useEffect(() =>{
+
+
         const backtoTop = document.querySelector(".top-arrow");
         const scrollToTop = (e) => {
             e.preventDefault();
@@ -25,8 +29,9 @@ export default function ProjectFooter({ previousProject, nextProject, topSelecto
 
   return (
     <footer className='w-full overflow-hidden flex justify-between p-4 mt-2 box-border content-center'>
+      
       {previousProject ? (
-        <Link href={`/project-page/${previousProject.slug}`} className='circular-nav flex gap-1 content-center hover:text-[--teal]'>
+        <Link href={`${previousProject}`} className='circular-nav flex gap-1 content-center hover:text-[--teal]'>
           <ArrowLeftIcon className='size-4 self-center' /> Previous
         </Link>
       ) : (
@@ -36,7 +41,7 @@ export default function ProjectFooter({ previousProject, nextProject, topSelecto
         <ArrowUpIcon className="size-4 self-center" /> <span className='self-center top'>Top</span>
       </Link>
       {nextProject ? (
-        <Link href={`/project-page/${nextProject.slug}`} className='circular-nav flex gap-1 content-center hover:text-[--teal]'>
+        <Link href={`${nextProject}`} className='circular-nav flex gap-1 content-center hover:text-[--teal]'>
           Next <ArrowRightIcon className='size-4 self-center' />
         </Link>
       ) : (

@@ -8,10 +8,6 @@ import Link from 'next/link';
 import Footer from "./Footer.js";
 
 export default function ProjectList({ projects }) {
-  // const [selectedFilter, setSelectedFilter] = useState('design');
-    // const filteredProjects = projects.filter((project) =>
-  //   project.types.includes(selectedFilter) 
-  // );
   const pathname = usePathname();
   const router = useRouter();
   const [activeFilter, setActiveFilter] = useState('design');
@@ -80,7 +76,7 @@ export default function ProjectList({ projects }) {
                  </div>
                 ))}
               </div>
-              <Link href={`/project-page/${project.currentSlug}`} className="more-btn w-1/4">
+              <Link href={`/${activeFilter}/${project.currentSlug}`} className="more-btn w-1/4">
                 More
               </Link>
             </section>
@@ -88,7 +84,7 @@ export default function ProjectList({ projects }) {
               {project.mediaType.startsWith('image/') ? (
                 <Image src={project.mediaUrl} alt={project.alt} width={1920} height={1080} className='img-container' />
               ) : (
-                <video autoPlay loop className='video-container'>
+                <video autoPlay loop muted className='video-container'>
                   <source src={project.mediaUrl} type={project.mediaType} />
                 </video>
               )}

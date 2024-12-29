@@ -1,5 +1,5 @@
 
-import client from '../../lib/sanity'
+'use client'
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRightIcon, ArrowUpIcon, ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
@@ -7,55 +7,8 @@ import ProjectFooter from '@/app/components/ProjectFooter';
 
 
 
-export const revalidate = 30;
+export default function ProjectPage({currentProject, nextProject, previousProject}){
 
-
-async function getData(slug){
-  const currentProjectQuery = `
-  *[_type == "project" && slug.current == $slug][0]{
-    title, 
-    _id, 
-    link[]{ url, title },
-    heading, 
-    year, 
-    description, 
-    role, 
-    tools, 
-    collaborators, 
-    "heroUrl": hero.asset->url,
-    "heroType": hero.asset->mimeType,
-    images[]{
-      _type == "image" => { "type": "image", "url": asset->url, alt }, 
-      _type == "file" => { "type": "file", "url": asset->url }
-    },
-    number, 
-    types
-  }`;
-
-  const currentProject = await client.fetch(currentProjectQuery, { slug });
-
-  const navigationQuery = `
-  {
-    "nextProject": *[_type == "project" && number > $currentNumber] | order(number asc)[0]{ "slug": slug.current, "number": number },
-    "previousProject": *[_type == "project" && number < $currentNumber] | order(number desc)[0]{ "slug": slug.current, "number": number },
-     "firstProject": *[_type == "project"] | order(number asc)[0]{ "slug": slug.current },
-    "lastProject": *[_type == "project"] | order(number desc)[0]{ "slug": slug.current }
-  }`;
-
-  const { nextProject, previousProject } = await client.fetch(navigationQuery, { currentNumber: currentProject.number });
-
-  return { currentProject, nextProject, previousProject };
-}
-
-
-export default async function ProjectPage({params}){
-    const data = await getData(params.slug);
-    const {currentProject, nextProject, previousProject, firstProject, lastProject} = data;
-
-    const next = nextProject || firstProject;
-    const previous = previousProject || lastProject;
-
-    // console.log(previousProject, nextProject);
   
     const toolColors = {
       "Figma": "#FEA3A0",
@@ -182,11 +135,10 @@ export default async function ProjectPage({params}){
     ))}
     
         </section>
-             <ProjectFooter previousProject={previous} nextProject={next} topSelector="body" />
+             <ProjectFooter previousProject={previousProject} nextProject={nextProject} currentFilter={currentProject.types[0]} topSelector="body" />
   
         </section>
 
 
     )
 }
-
